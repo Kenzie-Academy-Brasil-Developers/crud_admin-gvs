@@ -5,7 +5,7 @@ import { userCreateSchema, userReadSchema, userReturnSchema, userSchema, userUpd
 
 export type TUser = z.infer<typeof userSchema>
 export type TUserCreate = z.infer<typeof userCreateSchema>
-export type TUserRead = Array<TUser>
+export type TUserRead = z.infer<typeof userReadSchema>;
 export type TUserUpdate = z.infer<typeof userUpdateSchema>
 export type TUserReturn = z.infer<typeof userReturnSchema>
 export type TUserResult = QueryResult<TUser>
