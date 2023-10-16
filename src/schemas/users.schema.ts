@@ -7,5 +7,7 @@ export const userSchema = z.object({
     admin: z.boolean().default(false)
 }) 
 
-export const userCreateSchema = userSchema.omit({id: true, })
+export const userCreateSchema = userSchema.omit({id: true })
 export const userUpdateSchema = userSchema.partial()
+export const userReturnSchema = userSchema.omit({ password: true })
+export const userReadSchema = userReturnSchema.array()
