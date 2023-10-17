@@ -3,7 +3,7 @@ import AppError from "../errors/AppError.error";
 
 export const verifyPermission = (req : Request, res : Response , next : NextFunction) => {
     const {userId} = req.params
-    const {sub, admin} = res.locals
+    const {sub, admin} = res.locals.decoded
     if(admin){
         return next()
     }

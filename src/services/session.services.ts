@@ -14,13 +14,17 @@ export const loginService = async (
     'SELECT * FROM "users" WHERE "email" = $1;',
     [data.email]
   );
+
   if (query.rowCount === 0) {
     throw new AppError("Wrong email/password", 401);
   }
+
   const user: TUser = query.rows[0];
-  if (user.password !== data.password) {
+  const samePass: boolean = await compare(data.password, user.password)
+  if (!samePass) {
     throw new AppError("Wrong email/password", 401);
   }
+
   const token: string = sign(
     { email: user.email, admin: user.admin },
     process.env.SECRET_KEY!,
