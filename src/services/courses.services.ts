@@ -6,6 +6,7 @@ import {
   TCourseRead,
   TCourseResult,
 } from "../interfaces/course.interface";
+import { courseReadSchema } from "../schemas/courses.schema";
 //add token ?
 export const createCourseService = async (
   data: TCourseCreate
@@ -18,10 +19,8 @@ export const createCourseService = async (
   const query: TCourseResult = await client.query(queryFormat);
   return query.rows[0];
 };
-export const getCourseService = async (
-  admin: boolean
-): Promise<TCourseRead> => {
-  if (!admin) {
-    const queryString: string = `SELECT * FROM courses;`;
-  }
+export const getCourseService = async (): Promise<TCourseRead> => {
+  const queryString : string = `SELECT * FROM courses;`
+  const query: TCourseResult = await client.query(queryString)
+  return query.rows
 };
