@@ -12,8 +12,7 @@ export const handleErrors = (error : Error, req : Request, res: Response, next: 
     }
 
     if(error instanceof JsonWebTokenError){
-        return res.status(401).json({error: error.message})
+        return res.status(401).json({message: error.message})
     }
-    console.log(error);
     return res.status(500).json({message: 'Internal server Error.'})
 }
