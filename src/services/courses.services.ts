@@ -10,4 +10,4 @@ export const courseCreateService = async (data:TCourseCreate): Promise<TCourse> 
     )
     const query : TCourseResult = await client.query(queryFormat)
     return query.rows[0]
-}
+};
