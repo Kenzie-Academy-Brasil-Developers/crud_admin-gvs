@@ -5,4 +5,4 @@ import { sessionSchema } from "../schemas/session.schema";
 import { userRoutes } from "./user.routes";
 
 export const sessionRoutes : Router = Router()
-sessionRoutes.use('/login', validBody(sessionSchema),loginController )
+sessionRoutes.post('/', validBody(sessionSchema),loginController )
