@@ -23,7 +23,7 @@ export const getAllUsersService = async(): Promise<TUserRead> => {
     return userReadSchema.parse(query.rows)
 }
 
-export const getUserCourseService = async(userId : string): Promise<void> => {
+export const getUserCourseService = async(userId : string): Promise<any> => {
     const queryFormat : string = format(`
   SELECT
     "c".id AS "courseId",
@@ -42,4 +42,5 @@ export const getUserCourseService = async(userId : string): Promise<void> => {
   `)
 
   const query : TUserCourseResult = await client.query(queryFormat,  [userId])
+  return query.rows[0]
 }
