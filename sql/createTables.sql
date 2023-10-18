@@ -4,19 +4,19 @@ CREATE TABLE IF NOT EXISTS users(
     email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(120) NOT NULL,
     admin BOOLEAN NOT NULL DEFAULT false
-)
+);
 
 CREATE TABLE IF NOT EXISTS courses( 
     id SERIAL PRIMARY KEY,
     name VARCHAR(15) NOT NULL,
     description VARCHAR(15) NOT NULL
-)
+);
 
-CREATE TABLE IF NOT EXISTS userCourses(
+CREATE TABLE IF NOT EXISTS "userCourses"(
     id SERIAL PRIMARY KEY,
     active BOOLEAN NOT NULL DEFAULT true,
-    userId INTEGER NOT NULL,
-    courseId INTEGER NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(id),
-    FOREIGN KEY (courseId) REFERENCES courses(id)
-)
+    "userId" INTEGER NOT NULL,
+    "courseId" INTEGER NOT NULL,
+    FOREIGN KEY ("userId") REFERENCES users(id),
+    FOREIGN KEY ("courseId") REFERENCES courses(id)
+);
