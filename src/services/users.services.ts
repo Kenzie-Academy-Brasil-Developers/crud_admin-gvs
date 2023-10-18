@@ -2,6 +2,7 @@ import { hash } from "bcryptjs";
 import format from "pg-format";
 import { client } from "../database";
 import { TUserRead, TUserResult, TUserReturn } from "../interfaces/user.interface";
+import { TUserCourseCreate, TUserCourseResult } from "../interfaces/userCourse.interface";
 import { userReadSchema, userReturnSchema } from "../schemas/users.schema";
 import { TUserCreate } from "../__tests__/mocks/interfaces";
 
@@ -22,7 +23,7 @@ export const getAllUsersService = async(): Promise<TUserRead> => {
     return userReadSchema.parse(query.rows)
 }
 
-export const getUserCourseService = async(userId : string): Promise<void> => {
+export const getUserCourseService = async(userId : string): Promise<TUserCourseCreate> => {
     const queryFormat : string = format(`
   SELECT
     "c".id AS "courseId",
@@ -38,5 +39,8 @@ export const getUserCourseService = async(userId : string): Promise<void> => {
   INNER JOIN 
     users "u" ON "uc"."userId" = "u".id
   WHERE users.id = $1;
-  `,[userId])
+  `)
+
+  const query : TUserCourseResult = await client.query(queryFormat,  [userId])
+  return query.rows[0]
 }
