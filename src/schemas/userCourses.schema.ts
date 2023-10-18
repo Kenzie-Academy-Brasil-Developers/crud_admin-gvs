@@ -5,5 +5,6 @@ export const userCourseSchema = z.object({
     userId: z.number().positive(),
     courseId: z.number().positive()
 })
-export const userCourseResultSchema = userCourseSchema.omit({id: true})
-export const userCourseCreateSchema = userCourseSchema.omit({id: true, userId : true, courseId : true, active: true})
+export const userCourseResultSchema = userCourseSchema.omit({id: true, active: true, userId: true, courseId:true})
+export const userCourseCreateSchema = userCourseSchema.omit({id: true})
+ 
