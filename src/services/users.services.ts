@@ -6,7 +6,7 @@ import { TUserCourseCreate, TUserCourseResult } from "../interfaces/userCourse.i
 import { userReadSchema, userReturnSchema } from "../schemas/users.schema";
 import { TUserCreate } from "../__tests__/mocks/interfaces";
 
-export const createUserService = async(data: TUserCreate) : Promise<TUserReturn>=> {
+export const createUserService = async(data: TUserCreate) : Promise<TUserReturn> => {
     data.password = await hash(data.password, 10)
     const queryFormat: string = format(
         'INSERT INTO "users" (%I) VALUES (%L) RETURNING *;',
@@ -23,7 +23,7 @@ export const getAllUsersService = async(): Promise<TUserRead> => {
     return userReadSchema.parse(query.rows)
 }
 
-export const getUserCourseService = async(userId : string): Promise<TUserCourseCreate> => {
+export const getUserCourseService = async(userId : string): Promise<void> => {
     const queryFormat : string = format(`
   SELECT
     "c".id AS "courseId",
@@ -42,5 +42,4 @@ export const getUserCourseService = async(userId : string): Promise<TUserCourseC
   `)
 
   const query : TUserCourseResult = await client.query(queryFormat,  [userId])
-  return query.rows[0]
 }

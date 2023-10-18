@@ -8,4 +8,4 @@ import { userCreateSchema } from "../schemas/users.schema";
 export const userRoutes : Router = Router()
 userRoutes.post('/',validBody(userCreateSchema), createUserController)
 userRoutes.get('/', validToken, verifyOwnerAndAdminPermission ,getAllUsersController)
-userRoutes.get('/:id/courses')
+userRoutes.get('/:id/courses', validToken, verifyOwnerAndAdminPermission)
