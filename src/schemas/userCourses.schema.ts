@@ -7,4 +7,4 @@ export const userCourseSchema = z.object({
 })
 export const userCourseResultSchema = userCourseSchema.omit({id: true, active: true, userId: true, courseId:true})
 export const userCourseCreateSchema = userCourseSchema.omit({id: true})
- 
+export const userCourseReadSchema = userCourseSchema.array()
