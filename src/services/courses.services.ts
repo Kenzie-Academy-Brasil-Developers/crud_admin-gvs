@@ -6,7 +6,7 @@ import {
   TCourseRead,
   TCourseResult,
 } from "../interfaces/course.interface";
-import { TUserCourseResult } from "../interfaces/userCourse.interface";
+import { TUserCourseCreate, TUserCourseResult } from "../interfaces/userCourse.interface";
 import { courseReadSchema } from "../schemas/courses.schema";
 import { userCourseResultSchema } from "../schemas/userCourses.schema";
 //add token ?
@@ -28,7 +28,7 @@ export const getCourseService = async (): Promise<TCourseRead> => {
   return query.rows
 };
 
-export const postCourseInUserService = async(userId : string , courseId : string): Promise<any> => {
+export const postCourseInUserService = async(courseId : string, userId : string): Promise<TUserCourseCreate> => {
   const queryFormat : string = format(`
   SELECT
     "uc"."userId",
@@ -36,7 +36,7 @@ export const postCourseInUserService = async(userId : string , courseId : string
     "uc"."courseId",
     "c".name "courseName",
     "c".description "courseDescription",
-    "uc".active "userActiveInCourse
+    "uc".active "userActiveInCourse"
   FROM 
     userCourses "uc"
   JOIN 
@@ -44,5 +44,6 @@ export const postCourseInUserService = async(userId : string , courseId : string
   JOIN 
     courses "c" ON "c".id = "uc"."courseId"
   `)
-  const query : TUserCourseResult = await client.query(queryFormat, [userId, courseId])
+  const query : TUserCourseResult = await client.query(queryFormat, [courseId, userId])
+
 }

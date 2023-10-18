@@ -5,7 +5,7 @@ import { TUserCourseResult } from "../interfaces/userCourse.interface";
 
 export const validUserExist = async(req : Request, res: Response, next : NextFunction) : Promise<void> =>{
     const {userId} = req.params
-
+    
     const queryString : TUserCourseResult = await client.query(`SELECT * FROM users WHERE "id" = $1;`,
     [userId])
 
@@ -17,3 +17,4 @@ export const validUserExist = async(req : Request, res: Response, next : NextFun
 
     return next()
 }
+

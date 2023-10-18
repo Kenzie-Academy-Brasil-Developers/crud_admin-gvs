@@ -1,8 +1,9 @@
 import { z } from "zod"
 export const userCourseSchema = z.object({
     id : z.number().positive(),
-    active : z.boolean(),
+    active : z.boolean().default(true),
     userId: z.number().positive(),
     courseId: z.number().positive()
 })
 export const userCourseResultSchema = userCourseSchema.omit({id: true})
+export const userCourseCreateSchema = userCourseSchema.omit({id: true, userId : true, courseId : true, active: true})
