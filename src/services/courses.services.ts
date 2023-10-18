@@ -12,7 +12,7 @@ import { userCourseResultSchema } from "../schemas/userCourses.schema";
 //add token ?
 export const createCourseService = async (
   data: TCourseCreate
-): Promise<TCourse> => {
+): Promise<TCourseCreate> => {
   const queryFormat: string = format(
     `INSERT INTO courses (%I) VALUES (%L) RETURNING *;`,
     Object.keys(data),

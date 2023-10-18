@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS courses( 
     id SERIAL PRIMARY KEY,
     name VARCHAR(15) NOT NULL,
-    description VARCHAR(15) NOT NULL
+    description TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "userCourses"(

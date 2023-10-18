@@ -10,7 +10,6 @@ export const validEmailExist = async ( req : Request, res : Response, next : Nex
         'SELECT * FROM "users" WHERE "email" = $1;',
         [email]
       )
-      console.log(user);
       
     if(user.rows[0]){
         throw new AppError("Email already registered", 409)
