@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createCourseService, postCourseInUserService } from "../services/courses.services";
+import { createCourseService, deleteCourseInUserService, postCourseInUserService } from "../services/courses.services";
 import { getAllUsersService } from "../services/users.services";
 
 export const createCourseController = async(req: Request, res: Response) : Promise<Response> => {
@@ -13,4 +13,9 @@ export const getAllCourseController = async(req: Request, res: Response) : Promi
 export const postCourseInUserController = async(req: Request, res: Response) : Promise<Response> => {
     const userCourse = await postCourseInUserService( req.params.courseId, req.params.userId)
     return res.status(201).json({ message: "User successfully vinculed to course"})
+}
+
+export const deleteCourseInUserController = async(req: Request, res: Response) :Promise<Response> => {
+    const userCourse = await deleteCourseInUserService(req.params.courseId, req.params.userId)
+    return res.status(204)
 }
