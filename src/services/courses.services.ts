@@ -32,20 +32,22 @@ export const getCourseService = async (): Promise<TCourseRead> => {
 export const postCourseInUserService = async(courseId : string, userId : string): Promise<void> => {
   const queryFormat : string = format(`
   SELECT
-    "uc"."userId",
-    "u".name "userName",
-    "uc"."courseId",
-    "c".name "courseName",
-    "c".description "courseDescription",
-    "uc".active "userActiveInCourse"
+    "u".id AS "userId",
+    "u".name AS "userName",
+    "c".id AS "courseId",
+    "c".name AS "courseName",
+    "c".description AS "courseDescription",
+    "uc".active AS "userActiveInCourse"
   FROM 
-    userCourses "uc"
+    "userCourses" AS "uc"
   JOIN 
     users "u" ON "u".id = "uc"."userId"
   JOIN 
     courses "c" ON "c".id = "uc"."courseId"
+  WHERE "c".id = $1 AND "u".id = $2
+
   `)
-  const query : TUserCourseResult = await client.query(queryFormat, [courseId, userId])
+  const query : TCourseResult = await client.query(queryFormat, [courseId, userId])
 }
 
 export const deleteCourseInUserService = async(courseId : string , userId : string) : Promise<void> => {

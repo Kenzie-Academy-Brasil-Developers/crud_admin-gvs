@@ -10,6 +10,6 @@ import { validEmailExist } from "../middlewares/validEmailExists.middleware";
 export const courseRoutes : Router = Router()
 courseRoutes.post('/', validToken, verifyOwnerAndAdminPermission ,validBody(courseCreateSchema), createCourseController)
 courseRoutes.get('/', getAllCourseController)
-courseRoutes.post('/:courseId/users/:userId', validToken, verifyOwnerAndAdminPermission, validBody(userCourseCreateSchema), postCourseInUserController)
+courseRoutes.post('/:courseId/users/:userId',validCourseExist ,validToken, verifyOwnerAndAdminPermission ,validBody(userCourseCreateSchema), postCourseInUserController)
 courseRoutes.delete('/:courseId/users/:userId', validToken ,verifyOwnerAndAdminPermission,validCourseExist, validEmailExist, deleteCourseInUserController)
 courseRoutes.get('/:id/users' , validToken, verifyOwnerAndAdminPermission)
