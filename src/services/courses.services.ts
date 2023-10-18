@@ -28,7 +28,7 @@ export const getCourseService = async (): Promise<TCourseRead> => {
   return query.rows
 };
 
-export const postCourseInUserService = async(userId : string , courseId : string): Promise<any> => {
+export const postCourseInUserService = async(courseId : string, userId : string): Promise<any> => {
   const queryFormat : string = format(`
   SELECT
     "uc"."userId",
@@ -36,7 +36,7 @@ export const postCourseInUserService = async(userId : string , courseId : string
     "uc"."courseId",
     "c".name "courseName",
     "c".description "courseDescription",
-    "uc".active "userActiveInCourse
+    "uc".active "userActiveInCourse"
   FROM 
     userCourses "uc"
   JOIN 
@@ -44,5 +44,5 @@ export const postCourseInUserService = async(userId : string , courseId : string
   JOIN 
     courses "c" ON "c".id = "uc"."courseId"
   `)
-  const query : TUserCourseResult = await client.query(queryFormat, [userId, courseId])
+  const query : TUserCourseResult = await client.query(queryFormat, [courseId, userId])
 }
