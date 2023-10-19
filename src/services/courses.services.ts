@@ -54,7 +54,7 @@ export const deleteCourseInUserService = async(courseId : string , userId : stri
   const queryString = `
   UPDATE "userCourses"
   SET "active" = false
-  WHERE "courseId" = $1 AND "userId" = $2;
+  WHERE "userCourses"."courseId" = $1 AND "userCourses"."userId" = $2;
 `;
   await client.query(queryString, [courseId, userId])
 }
@@ -62,21 +62,22 @@ export const deleteCourseInUserService = async(courseId : string , userId : stri
 export const getAllUsersInCourseService = async(courseId : string): Promise<TCourseRead> => {
   const queryFormat : string = format(`
     SELECT 
-    "u".id AS "userId",
-    "u".name AS "userName",
-    "c".id AS "courseId",
-    "c".name AS "courseName",
-    "c".description AS "courseDescription",
-    "uc".active AS "userActiveInCourse"
-    FROM courses AS "c"
-    JOIN
-    users "u" ON "u".id = "uc"."userId"
-    JOIN 
-    "userCourses" "uc" ON "c".id = "uc"."courseId"
-    WHERE  "c".id = $1;
-
+  "u".id AS "userId",
+  "u".name AS "userName",
+  "c".id AS "courseId",
+  "c".name AS "courseName",
+  "c".description AS "courseDescription",
+  "uc".active AS "userActiveInCourse"
+FROM 
+  courses AS "c"
+JOIN 
+  "userCourses" AS "uc" ON "c".id = "uc"."courseId"
+JOIN 
+  users AS "u" ON "u".id = "uc"."userId"
+WHERE  
+  "c".id = $1;
   `)
-  const query : TCourseResult = await client.query(queryFormat, [courseId])
+  const query = await client.query(queryFormat, [courseId])
   return query.rows
 
 }

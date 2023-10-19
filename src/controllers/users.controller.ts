@@ -13,7 +13,7 @@ export const getAllUsersController = async (req: Request, res: Response): Promis
 }
 
 export const getUserCourseController = async(req: Request, res: Response): Promise<Response> =>{
-  const userCourse = await getUserCourseService(req.params.userId)
+  const userCourse = await getUserCourseService(req.params.id)
   return res.status(200).json(userCourse)
 
 }

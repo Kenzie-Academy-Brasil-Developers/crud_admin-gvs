@@ -10,4 +10,4 @@ import { validEmailExist } from "../middlewares/validEmailExists.middleware";
 export const userRoutes : Router = Router()
 userRoutes.post('/', validBody(userCreateSchema), validEmailExist ,createUserController)
 userRoutes.get('/', validToken, verifyOwnerAndAdminPermission ,getAllUsersController)
-userRoutes.get('/:id/courses', validToken, verifyOwnerAndAdminPermission, validCourseUser, getUserCourseController )
+userRoutes.get('/:id/courses',validToken, verifyOwnerAndAdminPermission, validCourseUser ,getUserCourseController )

@@ -18,9 +18,9 @@ export const postCourseInUserController = async(req: Request, res: Response) : P
 
 export const deleteCourseInUserController = async(req: Request, res: Response) :Promise<Response> => {
     const userCourse = await deleteCourseInUserService(req.params.courseId, req.params.userId)
-    return res.status(204)
+    return res.status(204).json()
 }
 export const getAllUsersInCourseController = async(req: Request, res: Response) :Promise<Response> => {
-    const userCourse = await getAllUsersInCourseService(req.params.courseId)
+    const userCourse = await getAllUsersInCourseService(req.params.id)
     return res.status(200).json(userCourse)
 }
