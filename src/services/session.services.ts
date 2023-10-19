@@ -21,7 +21,7 @@ export const loginService = async (
   }
 
   const user: TUser = query.rows[0];
-  const samePass: boolean = await compare(data.password, user.password)
+  const samePass: boolean = await compare(data.password, user.password);
   if (!samePass) {
     throw new AppError("Wrong email/password", 401);
   }
@@ -30,6 +30,6 @@ export const loginService = async (
     { email: user.email, admin: user.admin },
     process.env.SECRET_KEY!,
     { subject: user.id.toString(), expiresIn: process.env.EXPIRES_IN! }
-  )
+  );
   return { token };
 };

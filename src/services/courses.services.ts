@@ -1,16 +1,11 @@
 import format from "pg-format";
 import { client } from "../database";
 import {
-  TCourse,
   TCourseCreate,
   TCourseRead,
   TCourseResult,
 } from "../interfaces/course.interface";
-import { TUserCourseCreate, TUserCourseRead, TUserCourseResult } from "../interfaces/userCourse.interface";
-import { courseReadSchema } from "../schemas/courses.schema";
-import { userCourseResultSchema } from "../schemas/userCourses.schema";
-import { TUser } from "../interfaces/user.interface";
-//add token ?
+
 export const createCourseService = async (
   data: TCourseCreate
 ): Promise<TCourseCreate> => {
@@ -24,13 +19,16 @@ export const createCourseService = async (
 };
 
 export const getCourseService = async (): Promise<TCourseRead> => {
-  const queryString : string = `SELECT * FROM courses;`
-  const query: TCourseResult = await client.query(queryString)
-  return query.rows
+  const queryString: string = `SELECT * FROM courses;`;
+  const query: TCourseResult = await client.query(queryString);
+  return query.rows;
 };
 
-export const postCourseInUserService = async(courseId : string, userId : string): Promise<void> => {
-  const queryFormat : string = format(`
+export const postCourseInUserService = async (
+  courseId: string,
+  userId: string
+): Promise<void> => {
+  const queryFormat: string = format(`
   SELECT
     "u".id AS "userId",
     "u".name AS "userName",
@@ -46,21 +44,29 @@ export const postCourseInUserService = async(courseId : string, userId : string)
     courses "c" ON "c".id = "uc"."courseId"
   WHERE "c".id = $1 AND "u".id = $2
 
-  `)
-  const query : TCourseResult = await client.query(queryFormat, [courseId, userId])
-}
+  `);
+  const query: TCourseResult = await client.query(queryFormat, [
+    courseId,
+    userId,
+  ]);
+};
 
-export const deleteCourseInUserService = async(courseId : string , userId : string) : Promise<void> => {
+export const deleteCourseInUserService = async (
+  courseId: string,
+  userId: string
+): Promise<void> => {
   const queryString = `
   UPDATE "userCourses"
   SET "active" = false
   WHERE "userCourses"."courseId" = $1 AND "userCourses"."userId" = $2;
 `;
-  await client.query(queryString, [courseId, userId])
-}
+  await client.query(queryString, [courseId, userId]);
+};
 
-export const getAllUsersInCourseService = async(courseId : string): Promise<TCourseRead> => {
-  const queryFormat : string = format(`
+export const getAllUsersInCourseService = async (
+  courseId: string
+): Promise<TCourseRead> => {
+  const queryFormat: string = format(`
     SELECT 
   "u".id AS "userId",
   "u".name AS "userName",
@@ -76,8 +82,7 @@ JOIN
   users AS "u" ON "u".id = "uc"."userId"
 WHERE  
   "c".id = $1;
-  `)
-  const query = await client.query(queryFormat, [courseId])
-  return query.rows
-
-}
+  `);
+  const query = await client.query(queryFormat, [courseId]);
+  return query.rows;
+};
