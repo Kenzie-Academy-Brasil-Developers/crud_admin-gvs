@@ -21,6 +21,6 @@ export const deleteCourseInUserController = async(req: Request, res: Response) :
     return res.status(204).json()
 }
 export const getAllUsersInCourseController = async(req: Request, res: Response) :Promise<Response> => {
-    const userCourse = await getAllUsersInCourseService(req.params.courseId)
+    const userCourse = await getAllUsersInCourseService(req.params.id)
     return res.status(200).json(userCourse)
 }

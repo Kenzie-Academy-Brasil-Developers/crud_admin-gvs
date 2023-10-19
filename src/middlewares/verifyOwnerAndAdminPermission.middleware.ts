@@ -13,5 +13,8 @@ export const verifyOwnerAndAdminPermission = (req : Request, res : Response , ne
     if(id !== sub){
         throw new AppError("Insufficient permission", 403)
     }
+    if(!admin){
+        throw new AppError("Insufficient permission", 403)
+    }
     return next()
 }
