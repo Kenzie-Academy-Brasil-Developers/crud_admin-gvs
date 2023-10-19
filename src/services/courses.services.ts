@@ -51,15 +51,15 @@ export const postCourseInUserService = async(courseId : string, userId : string)
 }
 
 export const deleteCourseInUserService = async(courseId : string , userId : string) : Promise<void> => {
-  const queryString : string = `
+  const queryString = `
   UPDATE "userCourses"
   SET "active" = false
-  WHERE "courseId" = $1 AND "userId" = $2
-  ` 
-  await  client.query(queryString, [courseId, userId])
+  WHERE "courseId" = $1 AND "userId" = $2;
+`;
+  await client.query(queryString, [courseId, userId])
 }
 
-export const getAllUsersInCourseService = async(userId : string): Promise<TCourseRead> => {
+export const getAllUsersInCourseService = async(courseId : string): Promise<TCourseRead> => {
   const queryFormat : string = format(`
     SELECT 
     "u".id AS "userId",
@@ -73,10 +73,10 @@ export const getAllUsersInCourseService = async(userId : string): Promise<TCours
     users "u" ON "u".id = "uc"."userId"
     JOIN 
     "userCourses" "uc" ON "c".id = "uc"."courseId"
-    WHERE  "c".id = $1
+    WHERE  "c".id = $1;
 
   `)
-  const query : TCourseResult = await client.query(queryFormat, [userId])
+  const query : TCourseResult = await client.query(queryFormat, [courseId])
   return query.rows
 
 }
