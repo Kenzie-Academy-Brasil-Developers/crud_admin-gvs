@@ -2,7 +2,7 @@ import { hash } from "bcryptjs";
 import format from "pg-format";
 import { client } from "../database";
 import { TUserRead, TUserResult, TUserReturn } from "../interfaces/user.interface";
-import { TUserCourseCreate, TUserCourseResult } from "../interfaces/userCourse.interface";
+import { TUserCourseResult } from "../interfaces/userCourse.interface";
 import { userReadSchema, userReturnSchema } from "../schemas/users.schema";
 import { TUserCreate } from "../__tests__/mocks/interfaces";
 

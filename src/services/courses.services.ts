@@ -54,7 +54,7 @@ export const deleteCourseInUserService = async(courseId : string , userId : stri
   const queryString = `
   UPDATE "userCourses"
   SET "active" = false
-  WHERE "courseId" = $1 AND "userId" = $2;
+  WHERE "userCourses"."courseId" = $1 AND "userCourses"."userId" = $2;
 `;
   await client.query(queryString, [courseId, userId])
 }
