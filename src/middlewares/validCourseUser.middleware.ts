@@ -10,7 +10,7 @@ export const validCourseUser = async(req : Request, res: Response, next : NextFu
     [courseId]
     )
 
-    if(queryString.rowCount === 0){
+    if(queryString.rows.length === 0){
         throw new AppError("No course found" , 404)
     }
 

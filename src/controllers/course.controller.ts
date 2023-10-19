@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { createCourseService, deleteCourseInUserService, postCourseInUserService } from "../services/courses.services";
+import { createCourseService ,deleteCourseInUserService, postCourseInUserService } from "../services/courses.services";
 import { getAllUsersService } from "../services/users.services";
+import { getAllUsersInCourseService } from "../services/courses.services";
 
 export const createCourseController = async(req: Request, res: Response) : Promise<Response> => {
     const course = await createCourseService(req.body)
@@ -18,4 +19,8 @@ export const postCourseInUserController = async(req: Request, res: Response) : P
 export const deleteCourseInUserController = async(req: Request, res: Response) :Promise<Response> => {
     const userCourse = await deleteCourseInUserService(req.params.courseId, req.params.userId)
     return res.status(204)
+}
+export const getAllUsersInCourseController = async(req: Request, res: Response) :Promise<Response> => {
+    const userCourse = await getAllUsersInCourseService(req.params.courseId)
+    return res.status(200).json(userCourse)
 }
