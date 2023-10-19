@@ -53,7 +53,7 @@ export const postCourseInUserService = async(courseId : string, userId : string)
 export const deleteCourseInUserService = async(courseId : string , userId : string) : Promise<void> => {
   const queryString = `
   UPDATE "userCourses"
-  SET "active" = false,
+  SET "active" = false
   WHERE "courseId" = $1 AND "userId" = $2;
 `;
   await client.query(queryString, [courseId, userId])
