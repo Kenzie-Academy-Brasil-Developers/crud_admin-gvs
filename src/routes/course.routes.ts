@@ -5,9 +5,7 @@ import { courseCreateSchema } from "../schemas/courses.schema";
 import { createCourseController, deleteCourseInUserController, getAllCourseController, getAllUsersInCourseController, postCourseInUserController } from "../controllers/course.controller";
 import { verifyOwnerAndAdminPermission } from "../middlewares/verifyOwnerAndAdminPermission.middleware";
 import { userCourseCreateSchema, userCourseResultSchema } from "../schemas/userCourses.schema";
-import { verifyAdminPermission } from "../middlewares/verifyAdmin.middleware";
 import { validUserExist } from "../middlewares/validUserExist.middleware";
-import { validCourseUser } from "../middlewares/validCourseUser.middleware";
 export const courseRoutes : Router = Router()
 courseRoutes.post('/', validToken, verifyOwnerAndAdminPermission ,validBody(courseCreateSchema), createCourseController)
 courseRoutes.get('/', getAllCourseController)

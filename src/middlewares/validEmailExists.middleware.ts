@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../errors/AppError.error";
 import { client } from "../database";
-import { TUser, TUserResult } from "../interfaces/user.interface";
+import { TUserResult } from "../interfaces/user.interface";
 
 export const validEmailExist = async ( req : Request, res : Response, next : NextFunction) : Promise<void> => {
     const {email} = req.body
